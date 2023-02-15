@@ -1,0 +1,19 @@
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.ubc-events__pagination{
+    list-style: none;
+    display: flex;
+
+    li{
+        margin-right: 4px;
+    }
+    
+    .ubc-events__pagination__buttons{
+        color: #727171;
+        text-decoration: underline;
+    }
+}

@@ -1,0 +1,43 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "ubc/event-block",
+	"version": "1.0.0",
+	"title": "UBC Event Block",
+	"category": "widgets",
+	"icon": "search",
+	"description": "The UBC Event block pulls events information from events.ubc.ca and display them as list or calendar.",
+	"supports": {
+		"html": false
+	},
+	"textdomain": "ubc-event-block",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"attributes": {
+		"viewType": {
+			"type": "string",
+			"default": "list"
+		},
+		"postPerPage": {
+			"type": "integer",
+			"default": 10
+		},
+		"selectedCategories": {
+			"type": "array",
+			"default": []
+		},
+		"selectedOrganizers": {
+			"type": "array",
+			"default": []
+		},
+		"selectedVenues": {
+			"type": "array",
+			"default": []
+		},
+		"pagination": {
+			"type": "boolean",
+			"default": true
+		}
+	}
+}
