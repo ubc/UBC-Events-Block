@@ -268,7 +268,7 @@ function generate_request_payload( $payload, $additional_payload ) {
 	);
 
 	// Add additional payload.
-	$payload = array_merge( $payload, $additional_payload );
+	$payload = array_merge( $additional_payload, $payload );
 
 	// Format payload data.
 	$payload = array_map(
