@@ -165,6 +165,7 @@ function render_events_calendar( $attributes ) {
 function render_events_list( $attributes ) {
 
 	$current_page = max( 1, get_query_var( 'paged' ) );
+	$pagination   = boolval( $attributes['pagination'] );
 	$events       = get_events(
 		array(
 			'per_page'   => (int) $attributes['postPerPage'],
@@ -172,10 +173,9 @@ function render_events_list( $attributes ) {
 			'organizer'  => implode( ',', $attributes['selectedOrganizers'] ),
 			'venue'      => implode( ',', $attributes['selectedVenues'] ),
 			'status'     => 'publish',
-			'page'       => (int) $current_page,
+			'page'       => $pagination ? (int) $current_page : 1,
 		)
 	);
-	$pagination   = boolval( $attributes['pagination'] );
 
 	ob_start();
 	?>
