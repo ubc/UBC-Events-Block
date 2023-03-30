@@ -53,41 +53,50 @@ export default function Edit( props ) {
 	const [venues, setVenues]         = useState([]);
 	const [events, setEvents]         = useState([]);
 
-	useEffect( async() => {
-		const categories = await useCategories();
-		const organizers = await useOrganizers();
-		const venues     = await useVenues();
+	useEffect( () => {
+		const fetchFilterData = async() => {
+			const categories = await useCategories();
+			const organizers = await useOrganizers();
+			const venues     = await useVenues();
 
-		setCategories(categories);
-		setOrganizers(organizers);
-		setVenues(venues);
+			setCategories(categories);
+			setOrganizers(organizers);
+			setVenues(venues);
+		}
+
+		fetchFilterData();
 	}, [])
 
-	useEffect( async() => {
-		let eventsData = [];
+	useEffect( () => {
+		const fetchEvents = async() => {
+			let eventsData = [];
 
-		if( 'calendar' === viewType ) {
-			eventsData = await getEvents(
-				{
-					per_page: MAX_POST_PER_PAGE,
+			if( 'calendar' === viewType ) {
+				eventsData = await getEvents(
+					{
+						per_page: MAX_POST_PER_PAGE,
+						categories: selectedCategories.join(','),
+						organizer: selectedOrganizers.join(','),
+						venue: selectedVenues.join(','),
+						status: 'publish'
+					},
+					true
+				);
+				console.log(eventsData);
+			} else {
+				eventsData = await getEvents( {
+					per_page: postPerPage,
 					categories: selectedCategories.join(','),
 					organizer: selectedOrganizers.join(','),
 					venue: selectedVenues.join(','),
 					status: 'publish'
-				},
-				true
-			);
-		} else {
-			eventsData = await getEvents( {
-				per_page: postPerPage,
-				categories: selectedCategories.join(','),
-				organizer: selectedOrganizers.join(','),
-				venue: selectedVenues.join(','),
-				status: 'publish'
-			});
+				});
+			}
+	
+			setEvents( eventsData );
 		}
 
-		setEvents( eventsData );
+		fetchEvents();
 
 	}, [ postPerPage, selectedCategories, selectedOrganizers, selectedVenues, viewType ]);
 	
