@@ -64,6 +64,7 @@ function localize_to_editor_script() {
  * @return void
  */
 function enqueue_frontend_scripts() {
+	global $post;
 
 	if ( ! has_block( 'ubc/event-block', $post->post_content ) ) {
 		return;
