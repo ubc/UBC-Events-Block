@@ -7,19 +7,21 @@ import { dateI18n, getDate, gmdate, gmdateI18n } from "@wordpress/date";
 /**
  * Render events.
  */
-export const renderEvents = ( events, renderType ) => {
+export const renderEvents = ( events, renderType, attributes ) => {
 	switch( renderType ) {
 		case 'list':
-			return renderListEvents( events );
+			return renderListEvents( events, attributes );
 		case 'calendar':
-		  	return renderCalendarEvents( events );
+		  	return renderCalendarEvents( events, attributes );
 	}
 }
 
 /**
  * Render events as list.
  */
-const renderListEvents = ( events ) => {
+const renderListEvents = ( events, attributes ) => {
+	const { useFeatureImage } = attributes;
+	
 	return (
 		<div className="ubc-events">
 			<ul className="ubc-events__list">
@@ -35,14 +37,13 @@ const renderListEvents = ( events ) => {
 							 * Leave it for later.
 							 */
 
-							/* event.image && event.image.url ?
+							useFeatureImage && event.image && event.image.url ?
 							<img
 								className="ubc-events__list__image"
 								key={`${event.slug}_image`}
 								src={ event.image.sizes.large ? event.image.sizes.large.url : event.image.url }
 								alt={event.title}
-							/> :
-							'' */ }
+							/> : '' }
 							{ event.title ?
 							<a
 								className="ubc-events__list__title"
@@ -81,7 +82,7 @@ const renderListEvents = ( events ) => {
 /**
  * Render events as calendar.
  */
-const renderCalendarEvents = ( events ) => {
+const renderCalendarEvents = ( events, attributes ) => {
 	const formattedEvents = events.map( event => {
 		return {
 			title: event.title,

@@ -44,7 +44,8 @@ export default function Edit( props ) {
 		selectedCategories,
 		selectedOrganizers,
 		selectedVenues,
-		pagination
+		pagination,
+		useFeatureImage
 	} = attributes;
 	const blockProps = useBlockProps();
 
@@ -102,7 +103,7 @@ export default function Edit( props ) {
 	
 	return (
 		<div { ...blockProps }>
-			{ renderEvents( events, viewType ) }
+			{ renderEvents( events, viewType, attributes ) }
 			<InspectorControls>
 				<PanelBody title="Settings" initialOpen={ false }>
 					<SelectControl
@@ -139,6 +140,16 @@ export default function Edit( props ) {
 								} }
 								step={ 1 }
 								value={ postPerPage }
+							/>
+							<CheckboxControl
+								label="Use Feature Image"
+								help="Enable Feature image for each event"
+								checked={ useFeatureImage }
+								onChange={ () => {
+									setAttributes({
+										useFeatureImage: ! useFeatureImage
+									});
+								} }
 							/>
 							<CheckboxControl
 								label="Enable Pagination"
