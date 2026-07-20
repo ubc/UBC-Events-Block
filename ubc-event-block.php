@@ -296,4 +296,4 @@ function generate_request_payload( $payload, $additional_payload ) {
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------------- */
 
-add_action( 'plugin_loaded', __NAMESPACE__ . '\\init' );
+add_action( 'init', __NAMESPACE__ . '\\init' );
